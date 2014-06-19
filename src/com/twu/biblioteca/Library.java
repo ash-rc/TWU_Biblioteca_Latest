@@ -27,7 +27,7 @@ public class Library {
     }
 
     public void checkoutBook(Book book){
-        
+
         books.remove(book);
 
     }
