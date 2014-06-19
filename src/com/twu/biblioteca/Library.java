@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class Library {
 
-    ArrayList<Book> books = new ArrayList<Book>();
+    private ArrayList<Book> books = new ArrayList<Book>();
     private PrintStream out;
 
 
@@ -26,6 +26,11 @@ public class Library {
 
     }
 
+    public void checkoutBook(Book book){
+        
+        books.remove(book);
+
+    }
     public void listBooks() {
         for(Book b : books) {
             b.print(out);

@@ -57,7 +57,7 @@ public class BibliotecaTests {
     public void testMenuListBooks() throws IOException {
         BufferedReader reader = mock(BufferedReader.class);
         when(reader.readLine()).thenReturn("List Books").thenReturn("Quit");
-        verify(library.listBooks());
+
     }
     @Test
     public void testDisplayMenu(){

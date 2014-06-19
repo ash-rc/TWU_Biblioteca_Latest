@@ -11,13 +11,20 @@ import java.util.Hashtable;
 public class Menu {
 
     private boolean shouldQuit = false;
-    private Hashtable<String, Command> methodMap = new Hashtable<String, Command>();
+    private Hashtable<String, Command> methodMap;// = new Hashtable<String, Command>();
     private PrintStream out;
+    private Library library;
 
     public Menu(Hashtable<String, Command> menuMap, PrintStream out){
-//        methodMap.put("List Books", new ListBooksCommand(this, out));
-          this.methodMap = menuMap;
-          this.out = out;
+
+        this.out = out;
+
+        library = new Library(this.out);
+
+        this.methodMap = menuMap;
+        methodMap.put("List Books", new ListBooksCommand(library, this.out));
+
+
     }
 
     public void displayMenu() {

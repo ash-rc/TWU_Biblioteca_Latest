@@ -23,4 +23,25 @@ public class Book {
     public void print(PrintStream out) {
         out.printf("%-20s %-20s %-20s\n", title, author, year);
     }
+
+    @Override
+    public boolean equals(Object _book) {
+        Book book = (Book) _book;
+
+        return author.equals(book.getAuthor()) && title.equals(book.getTitle()) && year.equals(book.getYear());
+
+
+    }
+
+    public String getTitle(){
+        return title;
+    }
+
+    public String getYear(){
+        return year;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
 }
