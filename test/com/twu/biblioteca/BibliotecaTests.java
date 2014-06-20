@@ -6,8 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -21,13 +23,16 @@ public class BibliotecaTests {
     private Library library;
     private Menu menu;
     private PrintStream mockStream;
+    private BufferedReader reader;
 
     @Before
     public void setUp() {
         Hashtable<String, Command> decoyMap = new Hashtable<String, Command>();
         mockStream = mock(PrintStream.class);
         library = new Library(mockStream);
-        menu = new Menu(decoyMap, mockStream);
+        reader = mock(BufferedReader.class);
+        menu = new Menu(decoyMap, mockStream, reader);
+
     }
 
     @Test
@@ -41,9 +46,8 @@ public class BibliotecaTests {
 
     @Test
     public void testQuit() throws Exception {
-        BufferedReader reader = mock(BufferedReader.class);
         when(reader.readLine()).thenReturn("Quit");
-        menu.startTakingCommands(reader);
+        menu.startTakingCommands();
 
     }
 
@@ -55,7 +59,6 @@ public class BibliotecaTests {
 
     @Test
     public void testMenuListBooks() throws IOException {
-        BufferedReader reader = mock(BufferedReader.class);
         when(reader.readLine()).thenReturn("List Books").thenReturn("Quit");
 
     }
@@ -68,10 +71,24 @@ public class BibliotecaTests {
     @Test
     public void checkInvalidInput() throws IOException {
 
-        BufferedReader reader = mock(BufferedReader.class);
         when(reader.readLine()).thenReturn("Zoerir").thenReturn("Quit");
-        menu.startTakingCommands(reader);
+        menu.startTakingCommands();
         verify(mockStream).println("Select a valid option!");
+
+    }
+
+    @Test
+    public void checkOutBook() throws IOException {
+
+        String book = "Head First Java";
+//        List<Book> falseBook = new ArrayList<Book>();
+//        falseBook.add(new Book("Yellow Mellow", "Bob", "1954"));
+//        falseBook.add(new Book("Fly Monkey", "Tim", "1976"));
+
+        library.checkoutBook(reader);
+        when(reader.readLine()).thenReturn(book);
+        library.listBooks();
+        verify(mockStream).printf("%-20s %-20s %-20s\n", "Game of Thrones", "J.R.R. Martin", "1992");
 
     }
 

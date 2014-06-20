@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.Hashtable;
 
@@ -14,15 +15,17 @@ public class Menu {
     private Hashtable<String, Command> methodMap;// = new Hashtable<String, Command>();
     private PrintStream out;
     private Library library;
+    private BufferedReader reader;
 
-    public Menu(Hashtable<String, Command> menuMap, PrintStream out){
+    public Menu(Hashtable<String, Command> menuMap, PrintStream out, BufferedReader r){
 
         this.out = out;
 
         library = new Library(this.out);
-
+        reader = r;
         this.methodMap = menuMap;
         methodMap.put("List Books", new ListBooksCommand(library, this.out));
+        methodMap.put("Checkout Book", new CheckOutCommand(reader,library, this.out));
 
 
     }
@@ -33,7 +36,7 @@ public class Menu {
         }
     }
 
-    public void startTakingCommands(BufferedReader reader) throws IOException {
+    public void startTakingCommands() throws IOException {
         String input;
 
 

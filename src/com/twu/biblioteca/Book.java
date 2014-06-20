@@ -33,6 +33,13 @@ public class Book {
 
     }
 
+    public Book getBook(String title){
+        if (this.title.equals(title)){
+            return this;
+        }
+        return null;
+    }
+
     public String getTitle(){
         return title;
     }

@@ -9,8 +9,10 @@ public class BibliotecaApp {
     //Commit works
     public static void main(String[] args) throws IOException {
 
-          Menu menu = new Menu(new Hashtable<String, Command>(), System.out);
+          Menu menu = new Menu(new Hashtable<String, Command>(), System.out, new BufferedReader(new InputStreamReader(System.in)));
+
           menu.displayMenu();
-          menu.startTakingCommands(new BufferedReader(new InputStreamReader(System.in)));
+          menu.startTakingCommands();
+
     }
 }

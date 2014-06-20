@@ -26,9 +26,14 @@ public class Library {
 
     }
 
-    public void checkoutBook(Book book){
+    public void checkoutBook(BufferedReader reader) throws IOException {
+        String bookTitle = reader.readLine();
+        for (Book book: books){
+            if(book.getBook(bookTitle) != null){
+                books.remove(book);
+            }
+        }
 
-        books.remove(book);
 
     }
     public void listBooks() {
