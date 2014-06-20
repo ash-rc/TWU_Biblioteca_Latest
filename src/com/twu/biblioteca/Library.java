@@ -2,40 +2,40 @@ package com.twu.biblioteca;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Scanner;
+import java.util.List;
 
 /**
  * Created by ashleycampo on 6/17/14.
  */
 public class Library {
 
-    private ArrayList<Book> books = new ArrayList<Book>();
+    private List<Book> books;
     private PrintStream out;
 
-
-    public Library(PrintStream out) {
+    public Library(PrintStream out, List<Book> books) {
         this.out = out;
-        books.add(new Book("Head First Java", "Bill", "1924"));
-        books.add(new Book("Game of Thrones", "J.R.R. Martin", "1992"));
-
-
+        this.books = books;
     }
 
     public void checkoutBook(BufferedReader reader) throws IOException {
-        String bookTitle = reader.readLine();
-        for (Book book: books){
-            if(book.getBook(bookTitle) != null){
-                books.remove(book);
+        Book book = findBook(reader.readLine());
+        if(book != null){
+            books.remove(book);
+        } else {
+            System.out.println("Book not available.");
+        }
+    }
+
+    public Book findBook(String title) {
+        for(Book book : books) {
+            if (book.getTitle().equals(title)) {
+                return book;
             }
         }
-
-
+        return null;
     }
+
     public void listBooks() {
         for(Book b : books) {
             b.print(out);

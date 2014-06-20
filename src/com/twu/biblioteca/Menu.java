@@ -2,9 +2,8 @@ package com.twu.biblioteca;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Created by thomasmorris on 6/18/14.
@@ -12,23 +11,19 @@ import java.util.Hashtable;
 public class Menu {
 
     private boolean shouldQuit = false;
-    private Hashtable<String, Command> methodMap;// = new Hashtable<String, Command>();
+    private Map<String, Command> methodMap;
     private PrintStream out;
     private Library library;
     private BufferedReader reader;
 
-    public Menu(Hashtable<String, Command> menuMap, PrintStream out, BufferedReader r){
-
+    public Menu(Map<String, Command> menuMap, PrintStream out, BufferedReader reader) {
         this.out = out;
-
-        library = new Library(this.out);
-        reader = r;
+        this.reader = reader;
         this.methodMap = menuMap;
-        methodMap.put("List Books", new ListBooksCommand(library, this.out));
-        methodMap.put("Checkout Book", new CheckOutCommand(reader,library, this.out));
-
 
     }
+
+
 
     public void displayMenu() {
         for (String option : methodMap.keySet()) {
@@ -37,11 +32,9 @@ public class Menu {
     }
 
     public void startTakingCommands() throws IOException {
-        String input;
-
-
+        System.out.println("Welcome to biblioteca!");
         while (!shouldQuit()) {
-            input = reader.readLine();
+            String input = reader.readLine();
             if (input.equals("Quit")){
                 shouldQuit = true;
 
@@ -54,8 +47,9 @@ public class Menu {
         }
     }
 
-    public void displayWelcomeMessage() {
-        out.println("Welcome to Biblioteca!");
+    public void createCommands() {
+        methodMap.put("List Books", new ListBooksCommand(library, System.out));
+        methodMap.put("Checkout Book", new CheckOutCommand(reader,library, System.out));
     }
 
     public boolean shouldQuit(){
