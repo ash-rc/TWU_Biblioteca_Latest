@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
@@ -21,15 +22,20 @@ public class LibraryTest {
     @Before
     public void setUp() {
         mockStream = mock(PrintStream.class);
+        books = new ArrayList<Book>();
         books.add(new Book("Head First Java", "Bill", "1924"));
-        books.add(new Book("Game of Thrones", "J.R.R. Martin", "1992"));
+        books.add(new Book("A Song of Ice and Fire", "J.R.R. Martin", "1992"));
         library = new Library(mockStream, books);
     }
 
     @Test
     public void testListBooks() throws IOException {
+        int titleOffset = "A Song of Ice And Fire".length() + 5;
+        int authorOffset = "G.R.R. Martin".length() + 5;
+        String printFormat = "%-" + titleOffset + "s %-" + authorOffset + "s %-4s\n";
+
         library.listBooks();
-        verify(mockStream).printf("%-20s %-20s %-20s\n", "Head First Java", "Bill", "1924");
-        verify(mockStream).printf("%-20s %-20s %-20s\n", "Head First Java", "Bill", "1924");
+        verify(mockStream).printf(printFormat, "Head First Java", "Bill", "1924");
+        verify(mockStream).printf(printFormat, "Head First Java", "Bill", "1924");
     }
 }
