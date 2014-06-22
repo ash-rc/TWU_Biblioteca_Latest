@@ -6,7 +6,9 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
@@ -18,20 +20,18 @@ public class BibliotecaTests {
     private PrintStream mockStream;
     private BufferedReader reader;
     private Menu menu;
+    private List<Book> books;
 
     @Before
     public void setUp() {
-        Hashtable<String, Command> decoyMap = new Hashtable<String, Command>();
+        Map<String, Command> decoyMap = new HashMap<String, Command>();
         mockStream = mock(PrintStream.class);
+        books.add(new Book("Head First Java", "Bill", "1924"));
+        books.add(new Book("Game of Thrones", "J.R.R. Martin", "1992"));
         library = new Library(mockStream, books);
         reader = mock(BufferedReader.class);
         menu = new Menu(decoyMap, mockStream, reader);
     }
-
-
-
-
-
 
     @Test
     public void testMenuListBooks() throws IOException {

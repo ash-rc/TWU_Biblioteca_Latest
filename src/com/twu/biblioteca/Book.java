@@ -1,7 +1,5 @@
 package com.twu.biblioteca;
 
-import java.io.PrintStream;
-
 /**
  * Created by ashleycampo on 6/17/14.
  */
@@ -18,10 +16,6 @@ public class Book {
 
     public String toString() {
         return (title + "\t" + author + "\t" + year);
-    }
-
-    public void print(PrintStream out) {
-        out.printf("%-20s %-20s %-20s\n", title, author, year);
     }
 
     @Override

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Hashtable;
 
@@ -24,14 +25,15 @@ public class MenuTest {
     public void setUp() {
         Hashtable<String, Command> decoyMap = new Hashtable<String, Command>();
         mockStream = mock(PrintStream.class);
-        library = new Library(mockStream, books);
+        library = mock(Library.class);
         reader = mock(BufferedReader.class);
         menu = new Menu(decoyMap, mockStream, reader);
     }
 
     @Test
-    public void testWelcomeMessage() {
-        menu.displayWelcomeMessage();
+    public void testWelcomeMessage() throws IOException {
+        menu.startTakingCommands();
+        when(reader.readLine()).thenReturn("Quit");
         verify(mockStream).println("Welcome to Biblioteca!");
 
     }
