@@ -16,14 +16,13 @@ public class Menu {
     private Library library;
     private BufferedReader reader;
 
-    public Menu(Map<String, Command> menuMap, PrintStream out, BufferedReader reader) {
+    public Menu(Map<String, Command> menuMap, PrintStream out, BufferedReader reader, Library library) {
+        this.library = library;
         this.out = out;
         this.reader = reader;
         this.methodMap = menuMap;
 
     }
-
-
 
     public void displayMenu() {
         for (String option : methodMap.keySet()) {
@@ -32,7 +31,7 @@ public class Menu {
     }
 
     public void startTakingCommands() throws IOException {
-        System.out.println("Welcome to biblioteca!");
+     //   System.out.println("Welcome to biblioteca!");
         while (!shouldQuit()) {
             String input = reader.readLine();
             if (input.equals("Quit")){
@@ -54,5 +53,10 @@ public class Menu {
 
     public boolean shouldQuit(){
         return shouldQuit;
+    }
+
+    public void displayStartup() {
+        out.println("Welcome to Biblioteca");
+        displayMenu();
     }
 }

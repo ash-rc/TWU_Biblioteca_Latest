@@ -27,7 +27,7 @@ public class MenuTest {
         mockStream = mock(PrintStream.class);
         library = mock(Library.class);
         reader = mock(BufferedReader.class);
-        menu = new Menu(decoyMap, mockStream, reader);
+        menu = new Menu(decoyMap, mockStream, reader, library);
     }
 
     @Test

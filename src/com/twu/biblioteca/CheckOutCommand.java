@@ -19,13 +19,8 @@ public class CheckOutCommand implements Command {
         this.out = out;
     }
     @Override
-    public void execute() {
+    public void execute() throws IOException {
 
-        try {
-            library.checkoutBook(this.reader);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Invalid input");
-        }
+        library.checkoutBook(reader.readLine());
     }
 }

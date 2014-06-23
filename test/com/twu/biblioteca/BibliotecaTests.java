@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,24 +22,19 @@ public class BibliotecaTests {
     private BufferedReader reader;
     private Menu menu;
     private List<Book> books;
+    private Map<String, Command> decoyMap;
 
     @Before
     public void setUp() {
-        Map<String, Command> decoyMap = new HashMap<String, Command>();
         mockStream = mock(PrintStream.class);
+        books = new ArrayList <Book>();
         books.add(new Book("Head First Java", "Bill", "1924"));
         books.add(new Book("Game of Thrones", "J.R.R. Martin", "1992"));
-        library = new Library(mockStream, books);
+        LengthFinder lengthFinder = mock(LengthFinder.class);
+        library = new Library(mockStream, books, lengthFinder);
         reader = mock(BufferedReader.class);
-        menu = new Menu(decoyMap, mockStream, reader);
-    }
-
-    @Test
-    public void testMenuListBooks() throws IOException {
-        menu.startTakingCommands();
-        when(reader.readLine()).thenReturn("List Books").thenReturn("Quit");
-
-        verify(mockStream).printf("%-20s %-20s %-20s\n", "Game of Thrones", "J.R.R. Martin", "1992");
+        menu = new Menu(new HashMap<String, Command>(), mockStream, reader, library);
+        menu.createCommands();
     }
 
     @Test
@@ -49,21 +45,9 @@ public class BibliotecaTests {
 
     @Test
     public void checkInvalidInput() throws IOException {
-
         when(reader.readLine()).thenReturn("Zoerir").thenReturn("Quit");
         menu.startTakingCommands();
         verify(mockStream).println("Select a valid option!");
-
-    }
-
-    @Test
-    public void checkOutBook() throws IOException {
-        String book = "Head First Java";
-
-        library.checkoutBook(reader);
-        when(reader.readLine()).thenReturn(book);
-        library.listBooks();
-        verify(mockStream).printf("%-20s %-20s %-20s\n", "Game of Thrones", "J.R.R. Martin", "1992");
 
     }
 
