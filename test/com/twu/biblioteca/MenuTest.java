@@ -56,5 +56,4 @@ public class MenuTest {
         assertThat(hasCheckoutBook, is(true));
         assertThat(hasReturnBook, is(true));
     }
-    
 }

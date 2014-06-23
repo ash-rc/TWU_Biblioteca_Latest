@@ -17,6 +17,7 @@ public class ReturnBookCommand implements Command {
 
     @Override
     public void execute() throws IOException {
-
+        String book = reader.readLine();
+        library.returnBook(book);
     }
 }

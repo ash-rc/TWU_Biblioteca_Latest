@@ -28,6 +28,7 @@ public class Menu {
         for (String option : methodMap.keySet()) {
             out.println(option);
         }
+        out.println("Quit");
     }
 
     public void startTakingCommands() throws IOException {
