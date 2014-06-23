@@ -3,46 +3,48 @@ package com.twu.biblioteca;
 /**
  * Created by ashleycampo on 6/17/14.
  */
-public class Book {
+public class Book implements LibraryItem {
     String author;
     String year;
     String title;
 
-    public Book(String t, String a, String y) {
-        author = a;
-        year = y;
-        title = t;
-    }
-
-    public String toString() {
-        return (title + "\t" + author + "\t" + year);
+    public Book(String title, String author, String year, String rating) {
+        this.author = author;
+        this.year = year;
+        this.title = title;
     }
 
     @Override
     public boolean equals(Object _book) {
         Book book = (Book) _book;
 
-        return author.equals(book.getAuthor()) && title.equals(book.getTitle()) && year.equals(book.getYear());
-
-
+        return author.equals(book.getCreator()) && title.equals(book.getTitle()) && year.equals(book.getYear());
     }
 
-    public Book getBook(String title){
+    @Override
+    public LibraryItem getLibraryItem(String title) {
         if (this.title.equals(title)){
             return this;
         }
         return null;
     }
 
+    @Override
     public String getTitle(){
         return title;
     }
 
+    @Override
     public String getYear(){
         return year;
     }
 
-    public String getAuthor() {
+    @Override
+    public String getCreator() {
         return author;
     }
+
+    @Override
+    public String getRating() { return ""; }
+
 }

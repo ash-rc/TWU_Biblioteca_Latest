@@ -28,8 +28,8 @@ public class LibraryTest {
         availableBooks = new ArrayList<Book>();
         unavailableBooks = new ArrayList<Book>();
         lengthFinder = new LengthFinder();
-        availableBooks.add(new Book("Head First Java", "Bill", "1924"));
-        availableBooks.add(new Book("A Song of Ice and Fire", "J.R.R. Martin", "1992"));
+        availableBooks.add(new Book("Head First Java", "Bill", "1924", ""));
+        availableBooks.add(new Book("A Song of Ice and Fire", "J.R.R. Martin", "1992", ""));
         library = new Library(mockStream, availableBooks, unavailableBooks, lengthFinder);
     }
 
@@ -45,21 +45,21 @@ public class LibraryTest {
 
     @Test
     public void shouldCheckOutBook(){
-        Book book = new Book("Head First Java", "Bill", "1924");
+        Book book = new Book("Head First Java", "Bill", "1924", "");
         library.checkoutBook(book.getTitle());
         assertThat(availableBooks.contains(book), is(false));
     }
 
     @Test
     public void whenCheckoutSuccessfulReturnMessage(){
-        Book book = new Book("Head First Java", "Bill", "1924");
+        Book book = new Book("Head First Java", "Bill", "1924", "");
         library.checkoutBook(book.getTitle());
         verify(mockStream).println("Thank you! Enjoy Head First Java");
     }
 
     @Test
     public void shouldReturnBook(){
-        Book book = new Book("Head First Java", "Bill", "1924");
+        Book book = new Book("Head First Java", "Bill", "1924", "");
         library.checkoutBook(book.getTitle());
         library.returnBook(book.getTitle());
         assertThat(availableBooks.contains(book), is(true));

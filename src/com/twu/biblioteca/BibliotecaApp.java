@@ -17,8 +17,8 @@ public class BibliotecaApp {
 
         List<Book> availableBooks = new ArrayList<Book>();
         List<Book> unavailableBooks = new ArrayList<Book>();
-        availableBooks.add(new Book("Head First Java", "Bill", "1924"));
-        availableBooks.add(new Book("Game of Thrones", "J.R.R. Martin", "1992"));
+        availableBooks.add(new Book("Head First Java", "Bill", "1924", ""));
+        availableBooks.add(new Book("Game of Thrones", "J.R.R. Martin", "1992", ""));
         LengthFinder lengthFinder = new LengthFinder();
         Library library = new Library(System.out, availableBooks, unavailableBooks, lengthFinder);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
