@@ -7,10 +7,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Hashtable;
+import java.util.Map;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by ashleycampo on 6/20/14.
@@ -20,14 +21,15 @@ public class MenuTest {
     private PrintStream mockStream;
     private BufferedReader reader;
     private Menu menu;
+    private Map<String, Command> methodMap;
 
     @Before
     public void setUp() {
-        Hashtable<String, Command> decoyMap = new Hashtable<String, Command>();
+        methodMap = new Hashtable<String, Command>();
         mockStream = mock(PrintStream.class);
         library = mock(Library.class);
         reader = mock(BufferedReader.class);
-        menu = new Menu(decoyMap, mockStream, reader, library);
+        menu = new Menu(methodMap, mockStream, reader, library);
     }
 
     @Test
@@ -43,4 +45,16 @@ public class MenuTest {
         when(reader.readLine()).thenReturn("Quit");
         menu.startTakingCommands();
     }
+
+    @Test
+    public void shouldCreateCommands() {
+        menu.createCommands();
+        boolean hasListBooks = methodMap.keySet().contains("List Books");
+        boolean hasCheckoutBook = methodMap.keySet().contains("Checkout Book");
+        boolean hasReturnBook = methodMap.keySet().contains("Return Book");
+        assertThat(hasListBooks, is(true));
+        assertThat(hasCheckoutBook, is(true));
+        assertThat(hasReturnBook, is(true));
+    }
+    
 }

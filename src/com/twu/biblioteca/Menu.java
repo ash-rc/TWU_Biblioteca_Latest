@@ -48,7 +48,8 @@ public class Menu {
 
     public void createCommands() {
         methodMap.put("List Books", new ListBooksCommand(library, System.out));
-        methodMap.put("Checkout Book", new CheckOutCommand(reader,library, System.out));
+        methodMap.put("Checkout Book", new CheckOutCommand(reader,library));
+        methodMap.put("Return Book", new ReturnBookCommand(reader, library));
     }
 
     public boolean shouldQuit(){
